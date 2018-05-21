@@ -30,4 +30,5 @@
 ## 注：
 - 运行crawler_learn.py时，终端内会有大量debug信息，请不要慌张，这是程序在自动检测网络学堂上的数据编码。
 - 清华邮箱下载下来的数据可能存在乱码，此bug已知，希望之后还有时间改进。
+- 特别鸣谢kehao95提供的[API](https://github.com/kehao95/thu_learn)
 - **祝毕业快乐！**
