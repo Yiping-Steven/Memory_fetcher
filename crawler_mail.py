@@ -4,6 +4,7 @@ import time
 import json
 import imaplib
 import smtplib
+import os
 from email.mime.text import MIMEText
 from email.header import Header
 
@@ -36,44 +37,22 @@ class GetMail(object):
                 print(the_mail_number)
                 tmp1 = mail_data.find('Subject:')
                 print(mail_data[tmp1:tmp1+30])
-                file_name=str(int(the_mail_number))+'.html'
+                file_name='mail/'+str(int(the_mail_number))+'.html'
                 with open(file_name,'w') as f:
                     f.write(mail_data)
         else:
             print( "未检索到未读邮件")
 
-    # @classmethod
-    # def send_mail(self, mail_type, mail_username, mail_password):
-    #     """发送邮件"""
-    #     # 邮件内容
-    #     msg = self.the_task()       # 获取文件数据内容
-    #     message = MIMEText("'%s'" % msg, 'plain', 'utf-8')
-    #     # 发件人
-    #     message['From'] = Header(mail_username, 'utf-8')
-    #     # 收件人
-    #     message['To'] = Header(the_pattern, 'utf-8')
-    #     # 邮件主题
-    #     message['Subject'] = Header('邮件主题:测试', 'utf-8')
-    #     # 发件服务器
-    #     send_mail_type = 'smtp.exmail.qq.com'
-    #     try:
-    #         # 发短信采用默认端口25,不然会报错
-    #         send_server = smtplib.SMTP(send_mail_type, 25)
-    #         send_server.login(mail_username, mail_password)
-    #         send_server.sendmail(mail_username, the_pattern, message.as_string())
-    #         print( "邮件发送成功!!!")
-    #         send_server.quit()
-    #     except smtplib.SMTPException:
-    #         print( "邮件发送失败")
-
-
-def process_start():
+def process_start(user_id, user_pass):
     ret = GetMail.mail_login(mail_type='mails.tsinghua.edu.cn',
                              mail_ssl=993,
-                             mail_username='',
-                             mail_password='')
+                             mail_username=user_id,
+                             mail_password=user_pass)
 
 
 if __name__ == "__main__":
     # 执行程序
-    process_start()
+    user_id=input('Please input user email address:')
+    user_pass=input('Please input user password:')
+    os.makedirs('mail')
+    process_start(user_id, user_pass)
