@@ -7,8 +7,8 @@ import os
 import getpass
 import logging
 
-_DebugLevel = logging.DEBUG
-logging.basicConfig(level=logging.DEBUG)
+_DebugLevel = logging.INFO
+logging.basicConfig(level=_DebugLevel)
 
 # global vars
 _session = requests.session()
@@ -51,10 +51,10 @@ def login(user_id=None, user_pass=None):
     r = _session.post(_URL_LOGIN, data)
     # 即使登录失败也是200所以根据返回内容简单区分了
     if len(r.content) > 120:
-        logging.debug("login failed")
+        logging.warning("login failed")
         return False
     else:
-        logging.debug("login success")
+        logging.info("login success")
         return True
 
 
@@ -124,7 +124,7 @@ class Course:
         self._works = list(self.works)
         self._files = list(self.files)
         self._messages = list(self.messages)
-        logging.debug(name)
+        logging.info(name)
 
     @property
     def url(self):
@@ -224,7 +224,7 @@ class Work:
         self._start_time = start_time
         self._end_time = end_time
         self._submitted = submitted
-        logging.debug(title)
+        logging.info(title)
         pass
 
     @property
@@ -344,7 +344,7 @@ class Message:
         self._title = title
         self._date = date
         self._details = self.details
-        logging.debug(title)
+        logging.info(title)
 
     @property
     def id(self):
