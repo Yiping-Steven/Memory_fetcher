@@ -14,7 +14,10 @@ semester = Semester(current=False)#current=True表示当前学期，False表示�
 
 for course in semester.courses:
     path = 'learn/' + course.name
-    os.makedirs(path)
+
+    if not os.path.exists(path):
+        os.makedirs(path)
+    #os.makedirs(path)
     for file in course.files:
     	if file.size < sizeThre: # 下载文件大小控制，单位为Mb，一般不会超过50Mb
         	file.save(path)
