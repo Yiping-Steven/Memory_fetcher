@@ -294,6 +294,21 @@ class Work:
             _file = None
         return _file
 
+    @property
+    def answer(self):
+        """
+        the file attached to the work
+        :return: Instance of File/None if not exists
+        """
+        soup = make_soup(self.url)
+        try:
+            fname = soup.find_all('td', class_='tr_2')[4].a.contents[0]
+            furl = 'http://learn.tsinghua.edu.cn' + soup.find_all('td', class_='tr_2')[4].a['href']
+            _file = File(url=furl, name=fname)
+        except(AttributeError):
+            _file = None
+        return _file
+
 
 class File:
     def __init__(self, url, name, size=0, note=None):
